@@ -4,6 +4,10 @@ class Validator {
 
     validators = [Validator.isArray];
 
+    length(value) {
+        this.validators.push((arr) => arr !== null ? arr.length === value : false);
+        return this;
+    }
     maxDepth(maxDepth) {
         const getDepth = (value) => Validator.isArray(value) ? 1 + Math.max(0, ...value.map(getDepth)) : 0;
         this.validators.push((value) => {
