@@ -6,6 +6,28 @@ import Validator from '../index.js';
 
 test('task1', () => {
   const validator = new Validator();
+  const schema = validator.number();
+
+  assert.equal(schema.isValid(null), false); // false
+  assert.equal(schema.isValid(''), false); // false
+  assert.equal(schema.isValid(true), false); // false
+  assert.equal(schema.isValid(123), true); // true
+  assert.equal(schema.isValid(0), true); // true
+});
+
+test('task2', () => {
+  const validator = new Validator();
+  const schema1 = validator.number().even();
+  const schema2 = validator.number().odd();
+
+  assert.equal(schema1.isValid(''), false);
+  assert.equal(schema1.isValid(2), true);
+  assert.equal(schema2.isValid(2), false);
+  assert.equal(schema2.isValid(3), true);
+});
+
+test('task3', () => {
+  const validator = new Validator();
 
   const schema1 = validator.string();
   assert.equal(schema1.isValid('Hexlet'), true);
@@ -15,7 +37,7 @@ test('task1', () => {
   assert.equal(schema1.isValid(), false);
 });
 
-test('task2', () => {
+test('task4', () => {
   const validator = new Validator();
   const schema1 = validator.string().startsFromUpperCase();
 
@@ -46,7 +68,7 @@ test('task2', () => {
   assert.equal(schema4.isValid('Hide!'), true);
 });
 
-test('task3', () => {
+test('task5', () => {
   const validator = new Validator();
   const schema = validator.array();
 
@@ -58,7 +80,7 @@ test('task3', () => {
   assert.equal(schema.isValid(() => { }), false);
 });
 
-test('task4', () => {
+test('task6', () => {
   const validator = new Validator();
   const schema1 = validator.array().maxDepth(1);
   const schema2 = validator.array().maxDepth(8);
@@ -77,7 +99,7 @@ test('task4', () => {
   assert.equal(schema3.isValid([[1], [[2]], [[[3]]]]), true);
 });
 
-test('task5', () => {
+test('task7', () => {
   const validator = new Validator();
   const schema1 = validator.object().shape({
     name: validator.string().startsFromUpperCase(),
