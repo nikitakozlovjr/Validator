@@ -3,18 +3,25 @@ class Validator {
     validators = {};
 
     shape(schema) {
-        Object.keys(schema).map((key) => this.validators[key] = schema[key]);
+        this.validators = schema;
         return this;
     }
-    isValid(value) {
-        const keys = Object.keys(value);
+    validatorField(data, validator) {
+        if (validator.isValid) {
+            return validator.isValid(data);
+        }
 
-        if(keys.length !== Object.keys(this.validators).length) {
+        const dataKeys = Object.keys(data);
+        const validatorKeys = Object.keys(validator);
+
+        if (dataKeys.length !== validatorKeys.length) {
             return false;
         }
 
-        const result = keys.map((key) => this.validators[key].isValid(value[key]));
-        return !result.includes(false);
+        return validatorKeys.every((key) => this.validatorField(data[key], validator[key]));
+    }
+    isValid(data) {
+        return this.validatorField(data, this.validators);
     }
 }
 
