@@ -16,6 +16,10 @@ class Validator {
         this.validators.push((str) => str.includes('!'));
         return this;
     }
+    hasSpaces() {
+        this.validators.push((str) => str.includes(' '));
+        return this;
+    }
     isValid(value) {
         const result = this.validators.map((validator) => validator(value));
         return !result.includes(false);
