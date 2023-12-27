@@ -22,6 +22,7 @@
   "homepage": "https://github.com/sseezov/tst#readme",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "describe": "^1.2.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
