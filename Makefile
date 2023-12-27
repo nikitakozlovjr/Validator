@@ -7,8 +7,8 @@ install:
 test:
 	npm test
 
-lint:
-	npx eslint .
+lint: 
+	npm test
 
 lint-fix:
 	npx eslint . --fix
